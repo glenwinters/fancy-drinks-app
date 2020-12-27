@@ -32,10 +32,12 @@ const generateNonce = async () => {
 };
 
 interface AuthProps {
+  isLoggedIn: boolean;
   onLogin: () => void;
+  onLogout: () => void;
 }
 
-const Auth: React.FC<AuthProps> = ({ onLogin }) => {
+const Auth: React.FC<AuthProps> = ({ isLoggedIn, onLogin, onLogout }) => {
   const decodeToken = (token: string) => {
     const decodedToken = jwtDecoder<Token>(token);
     const { nonce, sub, name, exp } = decodedToken;
@@ -84,7 +86,15 @@ const Auth: React.FC<AuthProps> = ({ onLogin }) => {
     });
   };
 
-  return <Button title="Login" onPress={handleLoginPress}></Button>;
+  const handleLogoutPress = async () => {
+    SecureStore.deleteItemAsync(ID_TOKEN_KEY).then(onLogout);
+  };
+
+  return isLoggedIn ? (
+    <Button title="Logout" onPress={handleLogoutPress}></Button>
+  ) : (
+    <Button title="Login" onPress={handleLoginPress}></Button>
+  );
 };
 
 export default Auth;
