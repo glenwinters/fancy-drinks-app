@@ -77,7 +77,6 @@ const Auth: React.FC<AuthProps> = ({ token, onLogin, onLogout }) => {
           nonce,
         }),
     }).then((result) => {
-      console.log(result);
       if (result.type === 'success') {
         decodeToken(result.params.id_token);
       } else if (result.type === 'error' && result.params.error) {

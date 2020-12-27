@@ -28,7 +28,7 @@ export default function App() {
         const { exp, token, id, name } = session;
         if (exp > Math.floor(new Date().getTime() / 1000)) {
           setToken(token);
-          setUser({id, name, isNewUser})
+          setUser({ id, name, isNewUser });
         }
       }
     });
