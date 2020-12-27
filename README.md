@@ -33,3 +33,11 @@ because I'm using VS Code Remote Containers, which adds a layer of forwarding.
 | NONCE_KEY        | SecureStore key for the nonce               |
 | GRAPHQL_ENDPOINT | URL for the GraphQL API                     |
 | AUTH_NAMESPACE   | Auth0 JWT namespace for additional metadata |
+
+## Resources
+
+* [Expo docs](https://docs.expo.io/)
+* [Hasura docs](https://hasura.io/docs/1.0/graphql/core/index.html)
+* [Auth0 docs](https://auth0.com/docs/)
+* [Apollo Client docs](https://www.apollographql.com/docs/react/)
+* [Udemy course on Hasura, Auth0 and Apollo client](https://www.udemy.com/course/how-to-make-a-full-stack-react-native-app-with-easy-backend/)
