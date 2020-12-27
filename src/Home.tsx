@@ -8,7 +8,8 @@ import { Text, View } from 'react-native';
 import { User } from '../App';
 
 import { GRAPHQL_ENDPOINT } from '../config';
-import { insertUsers } from '../data/mutations';
+import { CREATE_USER } from '../data/mutations';
+import CocktailList from './CocktailList';
 
 interface HomeProps {
   token: string;
@@ -30,7 +31,7 @@ const Home: React.FC<HomeProps> = ({ token, user }) => {
 
     if (isNewUser) {
       client.mutate({
-        mutation: insertUsers,
+        mutation: CREATE_USER,
         variables: { id, name },
       });
     }
@@ -49,7 +50,7 @@ const Home: React.FC<HomeProps> = ({ token, user }) => {
   return (
     <ApolloProvider client={client}>
       <View>
-        <Text>Welcome {user.name}!</Text>
+        <CocktailList />
       </View>
     </ApolloProvider>
   );
