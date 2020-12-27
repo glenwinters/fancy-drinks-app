@@ -8,31 +8,34 @@ import Home from './src/Home';
 import { ID_TOKEN_KEY } from './config';
 
 export default function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    SecureStore.getItemAsync(ID_TOKEN_KEY).then(rawSession => {
+    handleLogin();
+  }, []);
+
+  const handleLogin = () => {
+    SecureStore.getItemAsync(ID_TOKEN_KEY).then((rawSession) => {
       if (rawSession) {
         const session = JSON.parse(rawSession);
-        if (session.exp > Math.floor(new Date().getTime() / 1000)) {
-          setIsLoggedIn(true);
+        const { exp, token } = session;
+        if (exp > Math.floor(new Date().getTime() / 1000)) {
+          setToken(token);
         }
       }
-    })
-  }, []);
+    });
+  };
 
   return (
     <View style={styles.container}>
-      {isLoggedIn && <Home />}
-        <Auth
-        isLoggedIn={isLoggedIn}
-          onLogin={() => {
-            setIsLoggedIn(true);
-          }}
-          onLogout={() => {
-            setIsLoggedIn(false)
-          }}
-        />
+      {token && <Home token={token} />}
+      <Auth
+        token={token}
+        onLogin={handleLogin}
+        onLogout={() => {
+          setToken(null);
+        }}
+      />
       <StatusBar style="auto" />
     </View>
   );
