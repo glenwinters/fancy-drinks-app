@@ -1,0 +1,4 @@
+export const AUTH_CLIENT_ID = "";
+export const AUTH_DOMAIN = "";
+export const ID_TOKEN_KEY = "";
+export const NONCE_KEY = "";

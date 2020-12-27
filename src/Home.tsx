@@ -1,8 +1,8 @@
 import React from 'react';
-import { HostComponent } from 'react-native';
+import { Text } from 'react-native';
 
 interface HomeProps {}
 
-const Home: React.FC<HomeProps> = () => <div>Home</div>;
+const Home: React.FC<HomeProps> = () => <Text>Home</Text>;
 
 export default Home;
