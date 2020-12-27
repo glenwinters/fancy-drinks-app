@@ -5,13 +5,16 @@ import {
 } from '@apollo/react-hooks';
 import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
+import { User } from '../App';
+
 import { GRAPHQL_ENDPOINT } from '../config';
 
 interface HomeProps {
-  token: string | null;
+  token: string;
+  user: User;
 }
 
-const Home: React.FC<HomeProps> = ({ token }) => {
+const Home: React.FC<HomeProps> = ({ token, user }) => {
   const [client, setClient] = useState<ApolloClient<any> | null>(null);
 
   useEffect(() => {
@@ -37,7 +40,7 @@ const Home: React.FC<HomeProps> = ({ token }) => {
   return (
     <ApolloProvider client={client}>
       <View>
-        <Text>Fancy Drinks</Text>
+        <Text>Welcome {user.name}!</Text>
       </View>
     </ApolloProvider>
   );

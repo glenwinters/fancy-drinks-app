@@ -9,6 +9,7 @@ import queryString from 'query-string';
 import {
   AUTH_CLIENT_ID,
   AUTH_DOMAIN,
+  AUTH_NAMESPACE,
   ID_TOKEN_KEY,
   NONCE_KEY,
 } from '../config';
@@ -20,6 +21,9 @@ interface Token {
   email: string;
   name: string;
   exp: string;
+  [AUTH_NAMESPACE]: {
+    isNewUser: boolean;
+  };
 }
 
 const generateNonce = async () => {
@@ -33,7 +37,7 @@ const generateNonce = async () => {
 
 interface AuthProps {
   token: string | null;
-  onLogin: () => void;
+  onLogin: (isNewUser: boolean) => void;
   onLogout: () => void;
 }
 
@@ -52,7 +56,7 @@ const Auth: React.FC<AuthProps> = ({ token, onLogin, onLogout }) => {
             exp,
             token,
           })
-        ).then(() => onLogin());
+        ).then(() => onLogin(decodedToken[AUTH_NAMESPACE].isNewUser));
       } else {
         Alert.alert('Error', "Nonces don't match");
         return;
